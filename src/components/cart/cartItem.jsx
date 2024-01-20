@@ -1,4 +1,6 @@
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
+
 function CartItem({name, count, id, onCountChange, onRemove}) {
     function btnHandler(action) {
         onCountChange(id, action);
@@ -23,6 +25,14 @@ function CartItem({name, count, id, onCountChange, onRemove}) {
             </tr>
         </>
      );
+}
+
+CartItem.protoTypes= {
+    name: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    onCountChange: PropTypes.func,
+    onRemove: PropTypes.func,
 }
 
 export default CartItem;

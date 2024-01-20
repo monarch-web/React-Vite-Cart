@@ -1,8 +1,9 @@
 import Table from 'react-bootstrap/Table';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './cart.css'
 import { useEffect, useState } from 'react';
 import CartItem from './cartItem';
+import AddItem from './addItem';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './cart.css'
 
 
 
@@ -20,7 +21,7 @@ function Cart() {
         },
         {
             name: "sheep",
-            count: 0,
+            count: "0",
         }
     ])
 
@@ -104,7 +105,7 @@ function Cart() {
                 </Table>
             </div>
             <div className="cart__footer">
-
+                <AddItem setBasketItems={setBasketItems} />
             </div>
         </div>
      );

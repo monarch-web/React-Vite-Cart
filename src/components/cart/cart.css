@@ -16,10 +16,20 @@
 }
 
 .cart__body {
+    width: 100%;
     background-color: #fff;
 }
 
 
 .table {
     width: 100%;
+    margin: 0;
+}
+
+.cart__footer {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
