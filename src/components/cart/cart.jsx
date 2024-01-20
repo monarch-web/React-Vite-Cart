@@ -7,6 +7,8 @@ import CartItem from './cartItem';
 
 
 function Cart() {
+
+    // Состояние корзины из бэкка
     const [basketItems, setBasketItems] = useState([
         {
             name: "ball",
@@ -22,14 +24,31 @@ function Cart() {
         }
     ])
 
+    // Поиск по названию
+    const [search, setSearch] = useState(""); 
+
+    // Создаю переменную которая будет хранить новый массив с отфильтрованными товарами по названию из поска
+    const filteredProducts = search.length === 0
+    ? basketItems
+    : basketItems.filter(product =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    // Счетчик кол-ва товаров в корзине
     let [itemCounts, setItemCounts] = useState(0)
 
+    // Обновление счетчика
     useEffect(() => {
-        for (let item of basketItems) {
-            setItemCounts(itemCounts += item.count);
-        }
-    })
+        let tempCount = 0;
 
+        for (let item of basketItems) {
+            tempCount += item.count
+        }
+
+        setItemCounts(tempCount)
+    }, [basketItems])
+
+    // Изменение кол-ва товара
     function onCountChange (index, action) {
         let temp = [...basketItems]
         if (action === "inc") {
@@ -40,12 +59,15 @@ function Cart() {
         setBasketItems(temp)
     }
 
+    // Удаление товара из таблицы
     function onRemove(name) {
         setBasketItems(basketItems.filter(item => item.name !== name))
     }
 
+    // Поиск по названию в таблице
     function searchItem(value) {
-        setBasketItems(basketItems.filter(item => item.name.includes(value)))
+        // Изменяю состояние поиска чтобы использовать его дальше для фильтрации
+        setSearch(value)
     }
 
     return ( 
@@ -77,7 +99,7 @@ function Cart() {
                         </tr>
                     </thead>
                     <tbody>
-                        {basketItems.map((item, index) => <CartItem key={index} id={index} name={item.name} count={item.count} onCountChange={onCountChange} onRemove={onRemove} />)}
+                        {filteredProducts.map((item, index) => <CartItem key={index} id={index} name={item.name} count={item.count} onCountChange={onCountChange} onRemove={onRemove} />)}
                     </tbody>
                 </Table>
             </div>
